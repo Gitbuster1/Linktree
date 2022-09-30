@@ -73,3 +73,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "devise", "~> 4.8"
+
+gem "rubocop", "~> 1.36"
+
+gem "simple_form", "~> 5.1"
