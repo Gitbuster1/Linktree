@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -20,9 +20,36 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  # We need to use a copy of the resource because we don't want to change
+  # the current user in place.
+  def update
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+
+    # update_params = account_update_params
+    # if account_update_params[:username].empty? || account_update_params[:username] == current_user.username
+    #   # current_user.update(params[:user].except(:username))
+    #   update_params.delete(:username)
+    #   user = User.find(current_user.id)
+    #   user.update(update_params)
+    #   redirect_to root_path, alert: resource.errors.full_messages.join(', ')
+    #   return
+    #   # resource.delete
+    #   # params.delete([resource_name][:username])
+    # end
+    resource_updated = update_resource(resource, account_update_params)
+    yield resource if block_given?
+    if resource_updated
+      set_flash_message_for_update(resource, prev_unconfirmed_email)
+      bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
+
+      respond_with resource, location: after_update_path_for(resource)
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      redirect_to request.referrer, alert: resource.errors.full_messages.join(', ')
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -42,21 +69,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update_resource(resource, params)
     return super if params[:password]&.present?
+
     resource.update_without_password(params.except(:current_password))
   end
 
-  def after_update_path_for(resource)
+  def after_update_path_for(_resource)
     request.referrer
   end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:avatar])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[avatar full_name username body])
   end
 
   # The path used after sign up.

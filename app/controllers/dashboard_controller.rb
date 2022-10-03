@@ -7,7 +7,11 @@ class DashboardController < ApplicationController
   end
 
   def show
-    redirect_to dashboard_path if @user.nil?
+    if @user.nil?
+      redirect_to dashboard_path
+      return
+    end
+    @links = @user.links.where.not(url: '', title: '').order(created_at: :asc)
   end
 
   def profile
@@ -17,6 +21,8 @@ class DashboardController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by_id(params[:id])
+    @user = User.friendly.find(params[:id])
+  rescue StandardError
+    @user = nil
   end
 end

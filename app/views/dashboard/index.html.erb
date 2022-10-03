@@ -1,7 +1,18 @@
-<% if current_user %>
-  <h2>Hi, <%= current_user.email %>! You are logged in!</h2>
-  <%= button_to "Logout", destroy_user_session_path,
-                method: :delete %>
-<% else %>
-
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <h1 style="text-align: center">Your Links</h1>
+      <%= button_to "New link", create_links_url, class: "btn btn-success btn-block mb-4 mt-3", style: "width: 100%" %>
+      <% current_user.links.order(created_at: :asc).each do |link| %>
+        <%= simple_form_for(link, url: links_url(link)) do |f| %>
+          <%= f.input :title, placeholder: "Title", label: false, class: "form-control" %>
+          <%= f.input :url, placeholder: "URL", label: false, class: "form-control" %>
+          <%= f.submit "Update", class: "btn btn-primary me-auto mt-2" %>
+        <% end %>
+        <%= button_to "Delete", destroy_links_path(link), method: :delete, class: "delete-button btn btn-danger me-auto"  %>
+      <% end %>
+    </div>
+    <div class="col-3"></div>
+  </div>
+</div>
