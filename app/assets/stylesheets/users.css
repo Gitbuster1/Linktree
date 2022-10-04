@@ -90,11 +90,12 @@
 }
 
 .delete-button {
-    /*width: fit-content !important;*/
-    /*margin: 0 0 0 auto !important;*/
     float: right;
     transform: translateY(-38px) !important;
     width: 77.75px !important;
     height: 38px !important;
 }
 
+.profile-links {
+    transform: translateY(256px) !important;
+}

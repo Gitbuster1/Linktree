@@ -35,6 +35,19 @@
         </div>
       </div>
       <div class="col-6">
+        <div class="row profile-links" data-controller="clipboard" data-clipboard-success-content="Link Copied!">
+            <%= hidden_field_tag(:share_link, user_url(current_user.friendly_id), data: { "clipboard-target": "source" }, readonly: true ) %>
+<!--            <button onclick="alert('Link copied to clipboard!')" type="button" class="btn btn-outline-success" data-action="clipboard#copy" style="margin-bottom: 40px">-->
+            <button type="button" class="btn btn-outline-success close" data-action="clipboard#copy" style="margin-bottom: 40px">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-share me-1" viewBox="0 0 16 16">
+                <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+              </svg>
+              <span data-clipboard-target="button">
+                Share your Linktree
+              </span>
+            </button>
+          <%= link_to "See your Linktree", current_user, class: "btn btn-outline-success" %>
+        </div>
       </div>
     </div>
   <% end %>

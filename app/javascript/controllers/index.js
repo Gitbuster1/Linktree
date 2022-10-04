@@ -5,4 +5,6 @@
 import { application } from "./application"
 
 import HelloController from "./hello_controller"
+import Clipboard from "stimulus-clipboard";
 application.register("hello", HelloController)
+application.register('clipboard', Clipboard)
