@@ -99,3 +99,7 @@
 .profile-links {
     transform: translateY(256px) !important;
 }
+
+#user_username {
+    width: 240px !important;
+}
