@@ -126,3 +126,23 @@
 .profile-links {
     transform: translateY(256px) !important;
 }
+
+.logo-link-container {
+    transform: translateY(120px) !important;
+}
+
+.logo-link:link {
+    text-decoration: none;
+}
+
+.logo-link:visited {
+    text-decoration: none;
+}
+
+.logo-link:hover {
+    text-decoration: none;
+}
+
+.logo-link:active {
+    text-decoration: none;
+}

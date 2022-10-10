@@ -1,24 +1,19 @@
-# README
+# Linktree
+This application is a Linktree clone built with Ruby on Rails.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features
+- Personalize your profile (add a profile picture, change your account information, description, etc.)
+- Add, modify or remove links from your profile
+- Security (only logged in users have access to their own dashboard or profile page)
+- Share your Linktree with others (they don't have to be logged in to see your Linktree)
 
-Things you may want to cover:
+## Technologies used
+- Ruby on Rails 7
+- esbuild
+- PostgreSQL
+- Bootstrap
+- Devise
+- AWS S3
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Demo
+You can see a demo of the application [here](https://linktree-yasaka.herokuapp.com/).
