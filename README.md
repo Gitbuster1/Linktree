@@ -1,5 +1,5 @@
 # Linktree
-This application is a Linktree clone built with Ruby on Rails.
+A Linktree clone built with Ruby on Rails.
 
 ## Features
 - Personalize your profile (add a profile picture, change your account information, description, etc.)
